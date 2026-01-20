@@ -10,5 +10,6 @@
 
 1 位数字校验码：根据前面 17 位数字生成的校验码（按照 ISO 7064:1983.MOD 11-2 计算得来）
 
+
 下图清楚地展示了第二代身份证号码的编码规则：
 <img width="1400" height="566" alt="image" src="https://github.com/user-attachments/assets/adb58216-220e-460f-a78e-1cdd2b20f767" />
