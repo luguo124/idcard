@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>中国大陆身份证号码生成器</title>
+<link rel="shortcut icon" href="favicon.ico" /> 
+<script language="javascript" src="images/area.js"></script>
+<script language="javascript" src="images/datejs.js"></script>
+<script language="javascript" src="images/js.js"></script>
+<script language="javascript" src="images/function.js"></script>
+<style>
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    #wrapper {
+        width: 100%;
+        max-width: 1100px;
+        margin: 20px;
+    }
+    .pages {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 40px;
+    }
+    .column1 {
+        flex: 0 0 450px;
+    }
+    .block.color2 {
+        border: none;
+        background: transparent;
+    }
+    form > div {
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    form > div:first-child {
+        margin-bottom: 30px;
+        font-size: 14px;
+        color: #666;
+        background: #eef2f7;
+        padding: 15px;
+        border-radius: 6px;
+        border-left: 4px solid #3498db;
+    }
+    .warning-text {
+        color: red;
+    }
+    span {
+        display: inline-block;
+        width: 60px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    select, input[type="text"] {
+        padding: 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 14px;
+        margin-right: 5px;
+        transition: all 0.3s ease;
+    }
+    select:focus, input[type="text"]:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        outline: none;
+    }
+    input[name="n"] {
+        width: 50px;
+    }
+    label {
+        margin-right: 20px;
+        cursor: pointer;
+    }
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+    .center {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 12px 40px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+        width: 100%;
+    }
+    .button:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+    .button:active {
+        transform: translateY(0);
+    }
+    #rNo {
+        flex: 1;
+        margin-top: 0;
+        border-left: 1px solid #eee;
+        padding-left: 40px;
+        padding-top: 0;
+        min-height: 400px;
+        max-height: 520px;
+        overflow-y: auto;
+    }
+    #rNo::-webkit-scrollbar {
+        width: 8px;
+    }
+    #rNo::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    #rNo::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+    #rNo::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+    }
+    #rNo div {
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 18px;
+        color: #27ae60;
+        padding: 8px 0;
+        border-bottom: 1px dashed #f0f0f0;
+        letter-spacing: 1px;
+    }
+    
+    @media (max-width: 900px) {
+        .pages {
+            flex-direction: column;
+        }
+        .column1 {
+            flex: 1;
+            width: 100%;
+        }
+        #rNo {
+            border-left: none;
+            border-top: 1px solid #eee;
+            padding-left: 0;
+            padding-top: 30px;
+            margin-top: 30px;
+            width: 100%;
+            min-height: auto;
+            max-height: none;
+            overflow-y: visible;
+        }
+    }
+</style>
+</head>
+
+<body onload="YYYYMMDDstart(document.form1,document.form1.SYear,document.form1.SMonth,document.form1.SDay),YYYYMMDDstart(document.form1,document.form1.EYear,document.form1.EMonth,document.form1.EDay)">
+<div id="wrapper">
+    <div class="pages">
+        <div class="column1">
+            <div class="block color2">
+                <form name="form1">
+                    <div>指定出生地、出生日期及性别就可生成1到999个格式正确的身份证号码！<strong class="warning-text">切记不可用于非法活动，否则后果自负！</strong></div>
+                    <input type="hidden" value="select" name="action">
+                    <div><span>地点：</span>
+                        <select name="p" id="p"></select>
+                        <select name="c" id="c"></select>
+                        <select name="r" id="r"></select>
+                    </div>
+                    <div><span>时间：</span>
+                        <select onchange="YYYYDD(this.value,document.form1.SMonth,document.form1.SDay)" id="y" name="SYear"><option value="2026">2026</option></select>年
+                        <select onchange="MMDD(this.value,document.form1.SYear,document.form1.SDay)" id="m" name="SMonth"><option value="1">1</option></select>月
+                        <select id="d" name="SDay"><option value="1">1</option></select>日
+                    </div>
+                    <div><span>性别：</span>
+                        <label><input type="radio" name="g" id="g1" value="1" checked="checked">男</label>
+                        <label><input type="radio" name="g" id="g2" value="2">女</label>
+                    </div>
+                    <div><span>提交：</span>
+                        <input type="text" name="n" id="n" size="3" maxlength="3" value="5">个
+                    </div>
+                    <div class="center">
+                        <input id="go" value="提交" type="button" class="button white" onclick="ock()">
+                    </div>
+                </form>	
+            </div>
+        </div>
+        <div class="rNo" id="rNo"></div>
+    </div>
+</div>
+<script language="javascript" defer>
+new PCAS("p","c","r","110000-北京市","110100-市辖区","110101-东城区");
+
+// 监听回车键事件
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // 阻止默认的回车行为（如表单提交刷新）
+        document.getElementById('go').click(); // 触发提交按钮点击
+    }
+});
+</script>
+</body>
+</html>
