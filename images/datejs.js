@@ -8,8 +8,8 @@ function YYYYMMDDstart(form,year,month,day)
         　　 //赋月份的下拉框  
         　　 for (var i = 2; i < 13; i++)  
         　　 month.options.add(new Option(i,i));  
-        　　 year.value = 2026; // 默认选择 2026 年
-        　　 if (year.value != 2026) year.value = y; // 如果2026不在列表中，回退到今年
+        　　 var defaultYear = y - 50; // 默认选择 50 年前
+        　　 year.value = defaultYear; 
         　　 month.value = new Date().getMonth() + 1;  
         　　 var n = MonHead[new Date().getMonth()];  
         　　 if (new Date().getMonth() ==1 && IsPinYear(year.options[year.selectedIndex].value)) n++;  

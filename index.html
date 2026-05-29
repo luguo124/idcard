@@ -46,6 +46,10 @@
         margin-bottom: 20px;
         line-height: 1.5;
     }
+    form > div:not(:first-child) {
+        display: flex;
+        align-items: center;
+    }
     form > div:first-child {
         margin-bottom: 30px;
         font-size: 14px;
@@ -54,15 +58,45 @@
         padding: 15px;
         border-radius: 6px;
         border-left: 4px solid #3498db;
+        display: block;
     }
     .warning-text {
         color: red;
     }
-    span {
+    span.label-text {
         display: inline-block;
         width: 60px;
         font-weight: 600;
         color: #2c3e50;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    span {
+        display: inline-block;
+    }
+    .number-input-group {
+        display: flex;
+        align-items: center;
+    }
+    .number-btn {
+        width: 32px;
+        height: 32px;
+        border: 1px solid #dcdcdc;
+        background: #f8f9fa;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+    .number-btn:hover {
+        background: #e9ecef;
+        border-color: #3498db;
+    }
+    .number-btn:active {
+        transform: scale(0.95);
     }
     select, input[type="text"] {
         padding: 10px;
@@ -117,6 +151,7 @@
         margin-top: 0;
         border-left: 1px solid #eee;
         padding-left: 40px;
+        padding-right: 20px;
         padding-top: 0;
         min-height: 400px;
         max-height: 520px;
@@ -136,13 +171,58 @@
     #rNo::-webkit-scrollbar-thumb:hover {
         background: #aaa;
     }
-    #rNo div {
+    #rNo .result-card {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    #rNo .result-header {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3498db;
+    }
+    #rNo .result-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 8px 0;
+    }
+    #rNo .result-item .info-text {
+        line-height: 1.5;
+    }
+    #rNo .result-divider {
+        height: 1px;
+        background: #e9ecef;
+        margin: 10px 0;
+    }
+    .idcard {
+        color: #27ae60;
         font-family: 'Consolas', 'Monaco', monospace;
         font-size: 18px;
-        color: #27ae60;
-        padding: 8px 0;
-        border-bottom: 1px dashed #f0f0f0;
         letter-spacing: 1px;
+    }
+    .phone {
+        color: #3498db;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 16px;
+    }
+    .label {
+        font-size: 13px;
+        color: #666;
+        margin-right: 10px;
+        width: 60px;
+        flex-shrink: 0;
+        font-weight: 500;
+    }
+    .info-text {
+        color: #333;
+        font-size: 14px;
     }
     
     @media (max-width: 900px) {
@@ -176,22 +256,34 @@
                 <form name="form1">
                     <div>指定出生地、出生日期及性别就可生成1到999个格式正确的身份证号码！<strong class="warning-text">切记不可用于非法活动，否则后果自负！</strong></div>
                     <input type="hidden" value="select" name="action">
-                    <div><span>地点：</span>
+                    <div><span class="label-text">地点：</span>
                         <select name="p" id="p"></select>
                         <select name="c" id="c"></select>
                         <select name="r" id="r"></select>
                     </div>
-                    <div><span>时间：</span>
+                    <div><span class="label-text">时间：</span>
                         <select onchange="YYYYDD(this.value,document.form1.SMonth,document.form1.SDay)" id="y" name="SYear"><option value="2026">2026</option></select>年
                         <select onchange="MMDD(this.value,document.form1.SYear,document.form1.SDay)" id="m" name="SMonth"><option value="1">1</option></select>月
                         <select id="d" name="SDay"><option value="1">1</option></select>日
                     </div>
-                    <div><span>性别：</span>
+                    <div><span class="label-text">性别：</span>
                         <label><input type="radio" name="g" id="g1" value="1" checked="checked">男</label>
                         <label><input type="radio" name="g" id="g2" value="2">女</label>
                     </div>
-                    <div><span>提交：</span>
-                        <input type="text" name="n" id="n" size="3" maxlength="3" value="5">个
+                    <div><span class="label-text">运营商：</span>
+                        <select name="operator" id="operator">
+                            <option value="mobile" selected="selected">中国移动</option>
+                            <option value="unicom">中国联通</option>
+                            <option value="telecom">中国电信</option>
+                        </select>
+                    </div>
+                    <div><span class="label-text">提交：</span>
+                        <div class="number-input-group">
+                            <button type="button" class="number-btn" onclick="changeNumber(-1)">-</button>
+                            <input type="text" name="n" id="n" size="3" maxlength="3" value="1" style="margin: 0 8px; text-align: center; width: 60px;">
+                            <button type="button" class="number-btn" onclick="changeNumber(1)">+</button>
+                            <span style="margin-left: 8px;">个</span>
+                        </div>
                     </div>
                     <div class="center">
                         <input id="go" value="提交" type="button" class="button white" onclick="ock()">
@@ -205,11 +297,31 @@
 <script language="javascript" defer>
 new PCAS("p","c","r","110000-北京市","110100-市辖区","110101-东城区");
 
-// 监听回车键事件
+// 改变数量的函数
+function changeNumber(delta) {
+    var input = document.getElementById('n');
+    var currentValue = parseInt(input.value) || 1;
+    var newValue = currentValue + delta;
+    // 限制范围1-999
+    if (newValue < 1) newValue = 1;
+    if (newValue > 999) newValue = 999;
+    input.value = newValue;
+}
+
+// 监听回车键事件和上下键快捷键
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // 阻止默认的回车行为（如表单提交刷新）
-        document.getElementById('go').click(); // 触发提交按钮点击
+        event.preventDefault(); 
+        document.getElementById('go').click(); 
+    }
+    // 上下箭头快捷键
+    if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        changeNumber(1);
+    }
+    if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        changeNumber(-1);
     }
 });
 </script>
