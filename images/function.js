@@ -21,13 +21,27 @@ function ock(){
 	var operatorText = document.getElementById("operator").options[document.getElementById("operator").selectedIndex].text;
 	// 日期文本
 	var dateText = sely + "年" + selm + "月" + seld + "日";
+	// 计算年龄
+	var age = calculateAge(sely, selm, seld);
 	
-	rNo.innerHTML=Get_CarNo(selr,d8,selg,seln,operator,areaText,genderText,dateText,operatorText);
+	rNo.innerHTML=Get_CarNo(selr,d8,selg,seln,operator,areaText,genderText,dateText,operatorText,age);
+}
+
+// 计算年龄
+function calculateAge(year, month, day) {
+	var today = new Date();
+	var birthDate = new Date(year, month - 1, day);
+	var age = today.getFullYear() - birthDate.getFullYear();
+	var monthDiff = today.getMonth() - birthDate.getMonth();
+	if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+		age--;
+	}
+	return age;
 }
 
 
 //获取num个身份证
-function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorText){
+function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorText,age){
 	var i = 0;
 	var q17;
 	var reCarNo = '';
@@ -40,7 +54,7 @@ function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorT
 				var phone = generatePhone(operator);
 				var address = generateAddress(areaText);
 				var name = generateName(sex);
-				reCarNo = reCarNo + "<div class='result-card'><div class='result-header'>信息 " + (i) + "</div><div class='result-item'><span class='label'>姓名</span><span class='info-text' style='font-size:18px;font-weight:600;'>" + name + "</span></div><div class='result-item'><span class='label'>地点</span><span class='info-text'>" + areaText + "</span></div><div class='result-item'><span class='label'>详细地址</span><span class='info-text' style='word-break: break-all;'>" + address + "</span></div><div class='result-item'><span class='label'>出生</span><span class='info-text'>" + dateText + "</span></div><div class='result-item'><span class='label'>性别</span><span class='info-text'>" + genderText + "</span></div><div class='result-item'><span class='label'>运营商</span><span class='info-text'>" + operatorText + "</span></div><div class='result-divider'></div><div class='result-item'><span class='label'>身份证</span><span class='idcard'>" + to18(q17) + "</span></div><div class='result-item'><span class='label'>手机号</span><span class='phone'>" + phone + "</span></div></div>"
+				reCarNo = reCarNo + "<div class='result-card'><div class='result-header'>信息 " + (i) + "</div><div class='result-item'><span class='label'>姓名</span><span class='info-text' style='font-size:18px;font-weight:600;'>" + name + "</span></div><div class='result-item'><span class='label'>地点</span><span class='info-text'>" + areaText + "</span></div><div class='result-item'><span class='label'>详细地址</span><span class='info-text' style='word-break: break-all;'>" + address + "</span></div><div class='result-item'><span class='label'>出生</span><span class='info-text'>" + dateText + "</span></div><div class='result-item'><span class='label'>性别</span><span class='info-text'>" + genderText + "</span></div><div class='result-item'><span class='label'>年龄</span><span class='info-text'>" + age + "岁</span></div><div class='result-divider'></div><div class='result-item'><span class='label'>身份证</span><span class='idcard'>" + to18(q17) + "</span></div><div class='result-item'><span class='label'>手机号</span><span class='phone'>" + phone + "</span></div></div>"
 			}
 		} else {
 			if ((sjs%2)==0){
@@ -49,7 +63,7 @@ function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorT
 				var phone = generatePhone(operator);
 				var address = generateAddress(areaText);
 				var name = generateName(sex);
-				reCarNo = reCarNo + "<div class='result-card'><div class='result-header'>信息 " + (i) + "</div><div class='result-item'><span class='label'>姓名</span><span class='info-text' style='font-size:18px;font-weight:600;'>" + name + "</span></div><div class='result-item'><span class='label'>地点</span><span class='info-text'>" + areaText + "</span></div><div class='result-item'><span class='label'>详细地址</span><span class='info-text' style='word-break: break-all;'>" + address + "</span></div><div class='result-item'><span class='label'>出生</span><span class='info-text'>" + dateText + "</span></div><div class='result-item'><span class='label'>性别</span><span class='info-text'>" + genderText + "</span></div><div class='result-item'><span class='label'>运营商</span><span class='info-text'>" + operatorText + "</span></div><div class='result-divider'></div><div class='result-item'><span class='label'>身份证</span><span class='idcard'>" + to18(q17) + "</span></div><div class='result-item'><span class='label'>手机号</span><span class='phone'>" + phone + "</span></div></div>"
+				reCarNo = reCarNo + "<div class='result-card'><div class='result-header'>信息 " + (i) + "</div><div class='result-item'><span class='label'>姓名</span><span class='info-text' style='font-size:18px;font-weight:600;'>" + name + "</span></div><div class='result-item'><span class='label'>地点</span><span class='info-text'>" + areaText + "</span></div><div class='result-item'><span class='label'>详细地址</span><span class='info-text' style='word-break: break-all;'>" + address + "</span></div><div class='result-item'><span class='label'>出生</span><span class='info-text'>" + dateText + "</span></div><div class='result-item'><span class='label'>性别</span><span class='info-text'>" + genderText + "</span></div><div class='result-item'><span class='label'>年龄</span><span class='info-text'>" + age + "岁</span></div><div class='result-divider'></div><div class='result-item'><span class='label'>身份证</span><span class='idcard'>" + to18(q17) + "</span></div><div class='result-item'><span class='label'>手机号</span><span class='phone'>" + phone + "</span></div></div>"
 			}
 		}
 	}
