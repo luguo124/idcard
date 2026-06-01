@@ -5,417 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>中国大陆身份信息生成器</title>
-<link rel="shortcut icon" href="favicon.ico" /> 
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" href="css/style.css" />
 <script language="javascript" src="js/area.js"></script>
 <script language="javascript" src="js/datejs.js"></script>
 <script language="javascript" src="js/js.js"></script>
 <script language="javascript" src="js/function.js"></script>
-<style>
-    body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        background-color: #f5f7fa;
-        color: #333;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
-    #wrapper {
-        width: 100%;
-        max-width: 1100px;
-        margin: 20px;
-    }
-    .pages {
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 40px;
-    }
-    .column1 {
-        flex: 0 0 450px;
-    }
-    .block.color2 {
-        border: none;
-        background: transparent;
-    }
-    form > div {
-        margin-bottom: 20px;
-        line-height: 1.5;
-    }
-    form > div:not(:first-child) {
-        display: flex;
-        align-items: center;
-    }
-    form > div:first-child {
-        margin-bottom: 30px;
-        font-size: 14px;
-        color: #666;
-        background: #eef2f7;
-        padding: 15px;
-        border-radius: 6px;
-        border-left: 4px solid #3498db;
-        display: block;
-    }
-    .warning-text {
-        color: red;
-    }
-    span.label-text {
-        display: inline-block;
-        width: 60px;
-        font-weight: 600;
-        color: #2c3e50;
-        flex-shrink: 0;
-        white-space: nowrap;
-    }
-    span {
-        display: inline-block;
-    }
-    .number-input-group {
-        display: flex;
-        align-items: center;
-    }
-    .number-btn {
-        width: 32px;
-        height: 32px;
-        border: 1px solid #dcdcdc;
-        background: #f8f9fa;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-    }
-    .number-btn:hover {
-        background: #e9ecef;
-        border-color: #3498db;
-    }
-    .number-btn:active {
-        transform: scale(0.95);
-    }
-    select, input[type="text"] {
-        padding: 10px;
-        border: 1px solid #dcdcdc;
-        border-radius: 6px;
-        background-color: #fff;
-        font-size: 14px;
-        margin-right: 5px;
-        transition: all 0.3s ease;
-        -webkit-tap-highlight-color: transparent;
-    }
-    select:focus, input[type="text"]:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        outline: none;
-    }
-    input[name="n"] {
-        width: 50px;
-    }
-    label {
-        margin-right: 20px;
-        cursor: pointer;
-    }
-    input[type="radio"] {
-        margin-right: 5px;
-    }
-    .center {
-        text-align: center;
-        margin-top: 30px;
-    }
-    .button {
-        background-color: #3498db;
-        color: white;
-        border: none;
-        padding: 12px 40px;
-        border-radius: 30px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
-        box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
-        width: 100%;
-    }
-    .button:hover {
-        background-color: #2980b9;
-        transform: translateY(-2px);
-    }
-    .button:active {
-        transform: translateY(0);
-    }
-    #rNo {
-        flex: 1;
-        margin-top: 0;
-        border-left: 1px solid #eee;
-        padding-left: 40px;
-        padding-right: 20px;
-        padding-top: 0;
-        min-height: 400px;
-        max-height: 520px;
-        overflow-y: auto;
-    }
-    #rNo::-webkit-scrollbar {
-        width: 8px;
-    }
-    #rNo::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-    #rNo::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border-radius: 4px;
-    }
-    #rNo::-webkit-scrollbar-thumb:hover {
-        background: #aaa;
-    }
-    #rNo .result-card {
-        background: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 16px;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    #rNo .result-header {
-        font-size: 16px;
-        font-weight: 600;
-        color: #2c3e50;
-        margin-bottom: 12px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #3498db;
-    }
-    #rNo .result-item {
-        display: flex;
-        align-items: flex-start;
-        padding: 8px 0;
-    }
-    #rNo .result-item .info-text {
-        line-height: 1.5;
-    }
-    #rNo .result-divider {
-        height: 1px;
-        background: #e9ecef;
-        margin: 10px 0;
-    }
-    .idcard {
-        color: #27ae60;
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 18px;
-        letter-spacing: 1px;
-    }
-    .phone {
-        color: #3498db;
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 16px;
-    }
-    .label {
-        font-size: 13px;
-        color: #666;
-        margin-right: 10px;
-        width: 60px;
-        flex-shrink: 0;
-        font-weight: 500;
-    }
-    .info-text {
-        color: #333;
-        font-size: 14px;
-    }
-    
-    @media (max-width: 900px) {
-        .pages {
-            flex-direction: column;
-        }
-        .column1 {
-            flex: 1;
-            width: 100%;
-        }
-        #rNo {
-            border-left: none;
-            border-top: 1px solid #eee;
-            padding-left: 0;
-            padding-top: 30px;
-            margin-top: 30px;
-            width: 100%;
-            min-height: auto;
-            max-height: none;
-            overflow-y: visible;
-        }
-    }
-
-    @media (max-width: 768px) {
-        body {
-            padding: 10px;
-        }
-        #wrapper {
-            margin: 10px;
-        }
-        h1 {
-            font-size: 28px !important;
-            letter-spacing: 2px !important;
-            margin-bottom: 25px !important;
-        }
-        .pages {
-            padding: 25px;
-            gap: 25px;
-        }
-        form > div:first-child {
-            font-size: 13px;
-            padding: 12px;
-        }
-        .label-text {
-            width: 50px;
-            font-size: 14px;
-        }
-        select, input[type="text"] {
-            padding: 8px;
-            font-size: 13px;
-            margin-right: 3px;
-        }
-        #p, #c, #r, #y, #m, #d {
-            width: 80px !important;
-        }
-        .number-btn {
-            width: 28px;
-            height: 28px;
-            font-size: 16px;
-        }
-        .button {
-            padding: 10px 30px;
-            font-size: 15px;
-        }
-        #rNo .result-card {
-            padding: 15px;
-            margin-bottom: 12px;
-        }
-        #rNo .result-header {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        #rNo .result-item {
-            padding: 6px 0;
-        }
-        .label {
-            font-size: 12px;
-            width: 50px;
-        }
-        .info-text {
-            font-size: 13px;
-        }
-        .idcard {
-            font-size: 15px;
-        }
-        .phone {
-            font-size: 14px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        body {
-            padding: 5px;
-        }
-        #wrapper {
-            margin: 5px;
-        }
-        h1 {
-            font-size: 22px !important;
-            letter-spacing: 1px !important;
-            margin-bottom: 20px !important;
-        }
-        .pages {
-            padding: 20px;
-            gap: 20px;
-        }
-        form > div {
-            margin-bottom: 15px;
-        }
-        form > div:first-child {
-            font-size: 12px;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .label-text {
-            width: 45px;
-            font-size: 13px;
-        }
-        select, input[type="text"] {
-            padding: 6px;
-            font-size: 12px;
-            margin-right: 2px;
-        }
-        #p, #c, #r, #y, #m, #d {
-            width: 65px !important;
-        }
-        .number-btn {
-            width: 26px;
-            height: 26px;
-            font-size: 14px;
-        }
-        input[name="n"] {
-            width: 45px !important;
-        }
-        .button {
-            padding: 8px 25px;
-            font-size: 14px;
-        }
-        #rNo .result-card {
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-        #rNo .result-header {
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        #rNo .result-item {
-            padding: 5px 0;
-        }
-        .label {
-            font-size: 11px;
-            width: 45px;
-        }
-        .info-text {
-            font-size: 12px;
-        }
-        .idcard {
-            font-size: 13px;
-        }
-        .phone {
-            font-size: 12px;
-        }
-    }
-
-    @media (max-width: 360px) {
-        h1 {
-            font-size: 18px !important;
-            margin-bottom: 15px !important;
-        }
-        .pages {
-            padding: 15px;
-        }
-        .label-text {
-            width: 40px;
-            font-size: 12px;
-        }
-        #p, #c, #r, #y, #m, #d {
-            width: 55px !important;
-        }
-        .button {
-            padding: 6px 20px;
-            font-size: 13px;
-        }
-    }
-</style>
 </head>
 
 <body onload="YYYYMMDDstart(document.form1,document.form1.SYear,document.form1.SMonth,document.form1.SDay),YYYYMMDDstart(document.form1,document.form1.EYear,document.form1.EMonth,document.form1.EDay)">
 <div id="wrapper">
-    <h1 style="text-align: center; font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); margin-bottom: 40px; letter-spacing: 4px;">身份信息生成器</h1>
+    <div class="header-section">
+        <span class="header-icon">🪪</span>
+        <h1>身份信息生成器</h1>
+    </div>
     <div class="pages">
         <div class="column1">
             <div class="block color2">
@@ -454,36 +57,51 @@
                     <div class="center">
                         <input id="go" value="提交" type="button" class="button white" onclick="ock()">
                     </div>
-                </form>	
+                </form>
             </div>
         </div>
         <div class="rNo" id="rNo"></div>
     </div>
-    <div style="text-align: center; margin-top: 30px; font-size: 12px; color: #999;">
+    <div class="footer">
         © 2026 litao - 仅供学习和测试使用
     </div>
 </div>
+<div id="toast" class="toast"></div>
 <script language="javascript" defer>
 new PCAS("p","c","r","110000-北京市","110100-市辖区","110101-东城区");
 
-// 改变数量的函数
 function changeNumber(delta) {
     var input = document.getElementById('n');
     var currentValue = parseInt(input.value) || 1;
     var newValue = currentValue + delta;
-    // 限制范围1-999
     if (newValue < 1) newValue = 1;
     if (newValue > 999) newValue = 999;
     input.value = newValue;
 }
 
-// 监听回车键事件和上下键快捷键
+function copyText(elementId) {
+    var text = document.getElementById(elementId).textContent;
+    navigator.clipboard.writeText(text).then(function() {
+        showToast('复制成功');
+    }).catch(function(err) {
+        showToast('复制失败');
+    });
+}
+
+function showToast(message) {
+    var toast = document.getElementById('toast');
+    toast.textContent = message + ' ✓';
+    toast.classList.add('show');
+    setTimeout(function() {
+        toast.classList.remove('show');
+    }, 2000);
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); 
-        document.getElementById('go').click(); 
+        event.preventDefault();
+        document.getElementById('go').click();
     }
-    // 上下箭头快捷键
     if (event.key === 'ArrowUp') {
         event.preventDefault();
         changeNumber(1);
