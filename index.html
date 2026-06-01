@@ -70,6 +70,33 @@
 <script language="javascript" defer>
 new PCAS("p","c","r","110000-北京市","110100-市辖区","110101-东城区");
 
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(randomInit, 100);
+});
+
+function randomInit() {
+    var randomGender = Math.random() > 0.5 ? 1 : 2;
+    document.getElementById('g' + randomGender).checked = true;
+    
+    var operators = ['mobile', 'unicom', 'telecom'];
+    var randomOperator = operators[Math.floor(Math.random() * operators.length)];
+    document.getElementById('operator').value = randomOperator;
+    
+    var currentYear = new Date().getFullYear();
+    var minYear = currentYear - 80;
+    var maxYear = currentYear - 50;
+    var randomYear = Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
+    var randomMonth = Math.floor(Math.random() * 12) + 1;
+    var daysInMonth = new Date(randomYear, randomMonth, 0).getDate();
+    var randomDay = Math.floor(Math.random() * daysInMonth) + 1;
+    
+    document.getElementById('y').value = randomYear;
+    YYYYDD(randomYear, document.form1.SMonth, document.form1.SDay);
+    document.getElementById('m').value = randomMonth;
+    MMDD(randomMonth, randomYear, document.form1.SDay);
+    document.getElementById('d').value = randomDay;
+}
+
 function changeNumber(delta) {
     var input = document.getElementById('n');
     var currentValue = parseInt(input.value) || 1;
