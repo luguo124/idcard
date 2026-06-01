@@ -208,21 +208,58 @@ input[type="radio"] {
 .center {
     text-align: center;
     margin-top: 35px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
 }
 
 .button {
-    background: linear-gradient(135deg, #00bfa5 0%, #00897b 100%);
-    color: white;
-    border: none;
-    padding: 16px 48px;
     border-radius: 50px;
-    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 150, 136, 0.35);
-    width: 100%;
     letter-spacing: 1px;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #00bfa5 0%, #00897b 100%);
+    color: white;
+    border: none;
+    padding: 14px 48px;
+    font-size: 16px;
+    box-shadow: 0 8px 25px rgba(0, 150, 136, 0.35);
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 150, 136, 0.45);
+    background: linear-gradient(135deg, #00897b 0%, #00695c 100%);
+}
+
+.submit-btn:active {
+    transform: translateY(-1px);
+}
+
+.refresh-btn {
+    background: white;
+    color: #00bfa5;
+    border: 2px solid #00bfa5;
+    padding: 12px 18px;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(0, 150, 136, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-btn:hover {
+    transform: rotate(180deg) scale(1.1);
+    background: linear-gradient(135deg, #00bfa5 0%, #00897b 100%);
+    border-color: #00897b;
+    color: white;
 }
 
 .button:hover {
