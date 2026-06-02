@@ -1,30 +1,56 @@
 function ock(){
 	var rNo = document.getElementById("rNo");
-	var selp = document.getElementById("p");
-	var selc = document.getElementById("c");
-	var selr = document.getElementById("r").value;
-	var sely = document.getElementById("y").value;
-	var selm = padLeft(document.getElementById("m").value,2);
-	var seld = padLeft(document.getElementById("d").value,2);
-	var selg = GetRadioValue("g");
-	var seln = Number(document.getElementById("n").value);
-	var operator = document.getElementById("operator").value;
-	var s='110000199001015930';
-	var d8;
-	d8= sely + selm + seld;
+	var submitBtn = document.querySelector('button[onclick="ock()"]');
+	var exportBtn = document.querySelector('button[onclick="exportToExcel()"]');
+	var refreshBtn = document.querySelector('button[onclick="ock()"]:not(.bg-primary)');
 	
-	// 获取地区文本
-	var areaText = selp.options[selp.selectedIndex].text + selc.options[selc.selectedIndex].text + document.getElementById("r").options[document.getElementById("r").selectedIndex].text;
-	// 获取性别文本
-	var genderText = selg == 1 ? "男" : "女";
-	// 获取运营商文本
-	var operatorText = document.getElementById("operator").options[document.getElementById("operator").selectedIndex].text;
-	// 日期文本
-	var dateText = sely + "年" + selm + "月" + seld + "日";
-	// 计算年龄
-	var age = calculateAge(sely, selm, seld);
+	// 显示加载动画
+	rNo.innerHTML = '<div class="flex flex-col items-center justify-center py-16 space-y-4"><div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div><span class="text-on-surface-variant font-label-md text-label-md">正在生成...</span></div>';
 	
-	rNo.innerHTML=Get_CarNo(selr,d8,selg,seln,operator,areaText,genderText,dateText,operatorText,age);
+	// 禁用按钮
+	submitBtn.disabled = true;
+	if(exportBtn) exportBtn.disabled = true;
+	if(refreshBtn) refreshBtn.disabled = true;
+	submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+	if(exportBtn) exportBtn.classList.add('opacity-50', 'cursor-not-allowed');
+	if(refreshBtn) refreshBtn.classList.add('opacity-50', 'cursor-not-allowed');
+	
+	// 延迟执行让用户看到加载效果
+	setTimeout(function() {
+		var selp = document.getElementById("p");
+		var selc = document.getElementById("c");
+		var selr = document.getElementById("r").value;
+		var sely = document.getElementById("y").value;
+		var selm = padLeft(document.getElementById("m").value,2);
+		var seld = padLeft(document.getElementById("d").value,2);
+		var selg = GetRadioValue("g");
+		var seln = Number(document.getElementById("n").value);
+		var operator = document.getElementById("operator").value;
+		var s='110000199001015930';
+		var d8;
+		d8= sely + selm + seld;
+		
+		// 获取地区文本
+		var areaText = selp.options[selp.selectedIndex].text + selc.options[selc.selectedIndex].text + document.getElementById("r").options[document.getElementById("r").selectedIndex].text;
+		// 获取性别文本
+		var genderText = selg == 1 ? "男" : "女";
+		// 获取运营商文本
+		var operatorText = document.getElementById("operator").options[document.getElementById("operator").selectedIndex].text;
+		// 日期文本
+		var dateText = sely + "年" + selm + "月" + seld + "日";
+		// 计算年龄
+		var age = calculateAge(sely, selm, seld);
+		
+		rNo.innerHTML=Get_CarNo(selr,d8,selg,seln,operator,areaText,genderText,dateText,operatorText,age);
+		
+		// 恢复按钮状态
+		submitBtn.disabled = false;
+		if(exportBtn) exportBtn.disabled = false;
+		if(refreshBtn) refreshBtn.disabled = false;
+		submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+		if(exportBtn) exportBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+		if(refreshBtn) refreshBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+	}, 300);
 }
 
 // 计算年龄
