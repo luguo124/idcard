@@ -44,18 +44,24 @@ function copyText(elementId) {
 }
 
 function showToast(message) {
-    var toast = document.getElementById('toast');
-    toast.textContent = message + ' ✓';
-    toast.classList.add('show');
+    var container = document.getElementById('toast-container');
+    var toast = document.createElement('div');
+    toast.className = 'copy-toast bg-primary text-on-primary px-6 py-3 rounded-full shadow-lg flex items-center gap-3 font-label-md text-label-md';
+    toast.innerHTML = `
+        <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        <span>${message}</span>
+    `;
+    container.appendChild(toast);
     setTimeout(function() {
-        toast.classList.remove('show');
-    }, 2000);
+        toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+        setTimeout(function() { toast.remove(); }, 500);
+    }, 2500);
 }
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
-        document.getElementById('go').click();
+        document.querySelector('form button:last-child').click();
     }
     if (event.key === 'ArrowUp') {
         event.preventDefault();

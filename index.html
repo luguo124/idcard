@@ -1,82 +1,243 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>中国大陆身份信息生成器</title>
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="stylesheet" href="css/style.css" />
+<!DOCTYPE html><html class="light" lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>身份信息生成器</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Hanken+Grotesk:wght@600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5b6765",
+                        "outline-variant": "#bcc9c6",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#3d4947",
+                        "primary-container": "#008378",
+                        "primary-fixed": "#89f5e7",
+                        "on-primary-fixed-variant": "#005049",
+                        "tertiary": "#555c6e",
+                        "background": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#bcc9c6",
+                        "on-secondary-fixed": "#121e1c",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#6bd8cb",
+                        "surface": "#f9f9ff",
+                        "outline": "#6d7a77",
+                        "primary": "#00685f",
+                        "on-tertiary-fixed-variant": "#404758",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-primary-container": "#f4fffc",
+                        "on-surface": "#151c27",
+                        "surface-container": "#e7eefe",
+                        "surface-tint": "#006a61",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#55615f",
+                        "surface-container-low": "#f0f3ff",
+                        "on-background": "#151c27",
+                        "tertiary-fixed": "#dce2f7",
+                        "secondary-fixed": "#d8e5e2",
+                        "secondary-container": "#d8e5e2",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-primary-fixed": "#00201d",
+                        "surface-variant": "#dce2f3",
+                        "surface-dim": "#d3daea",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-high": "#e2e8f8",
+                        "on-tertiary-fixed": "#141b2b",
+                        "tertiary-container": "#6e7487",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#c0c6db",
+                        "inverse-surface": "#2a313d",
+                        "on-tertiary-container": "#fefcff",
+                        "surface-container-highest": "#dce2f3",
+                        "on-secondary-fixed-variant": "#3d4947",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "base": "4px",
+                        "container-max": "1120px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "mono-data": ["JetBrains Mono"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "mono-data": ["15px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .copy-toast {
+            animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<main class="pt-8 pb-8 px-margin-mobile md:px-0">
+<div class="max-w-container-max mx-auto">
+<!-- Header Title -->
+<div class="mb-8 text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">身份信息生成器</h1>
+<p class="text-red-500 font-body-lg text-body-lg font-bold">切记不可用于非法活动，否则后果自负！</p>
+</div>
+<!-- Main Interactive Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_10px_25px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col md:flex-row h-[600px] border border-outline-variant/30">
+<!-- Left Column: Input -->
+<div class="w-full md:w-5/12 p-8 md:p-10 bg-white">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">tune</span>
+<h2 class="font-headline-sm text-headline-sm">生成配置</h2>
+<button type="button" class="ml-auto flex items-center gap-1 px-3 py-1.5 border border-primary text-primary rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-all active:scale-95" onclick="randomInit()"><span class="material-symbols-outlined text-[18px]">refresh</span>刷新</button></div>
+<form name="form1" class="space-y-6">
+<input type="hidden" value="select" name="action">
+<!-- Location Selection -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">生成地区 (省/市/区)</label>
+<div class="grid grid-cols-3 gap-2">
+<select name="p" id="p" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"></select>
+<select name="c" id="c" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"></select>
+<select name="r" id="r" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"></select>
+</div>
+</div>
+<!-- Date Selection -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">出生日期 (年/月/日)</label>
+<div class="grid grid-cols-3 gap-2">
+<select onchange="YYYYDD(this.value,document.form1.SMonth,document.form1.SDay)" id="y" name="SYear" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"></select>
+<select onchange="MMDD(this.value,document.form1.SYear,document.form1.SDay)" id="m" name="SMonth" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"></select>
+<select id="d" name="SDay" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"></select>
+</div>
+</div>
+<!-- Gender & Provider -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">性别</label>
+<div class="flex gap-4 items-center h-10">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input name="g" id="g1" value="1" type="radio" class="w-4 h-4 text-primary focus:ring-primary/20 border-outline-variant" checked>
+<span class="text-body-md group-hover:text-primary transition-colors">男</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input name="g" id="g2" value="2" type="radio" class="w-4 h-4 text-primary focus:ring-primary/20 border-outline-variant">
+<span class="text-body-md group-hover:text-primary transition-colors">女</span>
+</label>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">运营商</label>
+<select name="operator" id="operator" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none">
+<option value="mobile">中国移动</option>
+<option value="unicom">中国联通</option>
+<option value="telecom">中国电信</option>
+</select>
+</div>
+</div>
+<!-- Quantity Stepper -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">生成数量</label>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-low w-40 overflow-hidden">
+<button type="button" class="px-3 py-2 hover:bg-outline-variant/20 transition-colors text-on-surface-variant" onclick="changeNumber(-1)">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input name="n" id="n" type="number" value="1" min="1" max="999" class="w-full text-center bg-transparent border-none focus:ring-0 text-body-md font-bold">
+<button type="button" class="px-3 py-2 hover:bg-outline-variant/20 transition-colors text-on-surface-variant" onclick="changeNumber(1)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<button type="button" class="w-full bg-primary text-on-primary py-3 rounded-lg font-headline-sm text-headline-sm hover:bg-primary/90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/20" onclick="ock()">
+<span class="material-symbols-outlined">bolt</span>提交生成
+</button>
+</form>
+</div>
+<!-- Subtle Divider -->
+<div class="hidden md:block w-px bg-gradient-to-b from-transparent via-outline-variant/30 to-transparent"></div>
+<!-- Right Column: Output -->
+<div class="w-full md:w-7/12 p-8 md:p-10 bg-surface-container-low/30 relative flex flex-col h-full">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">assignment_turned_in</span>
+<h2 class="font-headline-sm text-headline-sm">生成结果</h2>
+</div>
+<div class="flex items-center gap-2">
+<button type="button" class="text-primary hover:bg-primary/10 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 font-label-md text-label-md" onclick="ock()">
+<span class="material-symbols-outlined text-[18px]">refresh</span>重新生成
+</button>
+<button type="button" class="bg-primary text-white hover:bg-primary/90 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 font-label-md text-label-md shadow-md shadow-primary/25" onclick="exportToExcel()">
+<span class="material-symbols-outlined text-[18px]">download</span>导出Excel
+</button>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant/40 p-6 flex-1 overflow-y-auto min-h-0">
+<!-- Result List -->
+<div id="rNo" class="space-y-4">
+<div class="text-center text-on-surface-variant py-12">
+<span class="material-symbols-outlined text-6xl text-outline-variant mb-4 block">receipt_long</span>
+<p class="font-label-md text-label-md">点击"提交生成"按钮开始生成身份信息</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full py-4 text-center">
+<p class="text-on-surface-variant font-label-md text-label-md text-sm">© 2026 litao - 仅供学习和测试使用</p>
+</footer>
+
+<!-- Feedback Toast -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] pointer-events-none flex flex-col gap-2" id="toast-container"></div>
 <script language="javascript" src="js/area.js"></script>
 <script language="javascript" src="js/datejs.js"></script>
 <script language="javascript" src="js/js.js"></script>
 <script language="javascript" src="js/function.js"></script>
 <script language="javascript" src="js/main.js"></script>
-</head>
-
-<body onload="YYYYMMDDstart(document.form1,document.form1.SYear,document.form1.SMonth,document.form1.SDay),YYYYMMDDstart(document.form1,document.form1.EYear,document.form1.EMonth,document.form1.EDay)">
-<div id="wrapper">
-    <div class="header-section">
-        <span class="header-icon">🪪</span>
-        <h1>身份信息生成器</h1>
-    </div>
-    <div class="pages">
-        <div class="column1">
-            <div class="block color2">
-                <form name="form1">
-                    <div>指定出生地、出生日期及性别就可生成1到999个格式正确的身份证号码！<strong class="warning-text">切记不可用于非法活动，否则后果自负！</strong></div>
-                    <input type="hidden" value="select" name="action">
-                    <div><span class="label-text">地点：</span>
-                        <select name="p" id="p"></select>
-                        <select name="c" id="c"></select>
-                        <select name="r" id="r"></select>
-                    </div>
-                    <div><span class="label-text">时间：</span>
-                        <select onchange="YYYYDD(this.value,document.form1.SMonth,document.form1.SDay)" id="y" name="SYear"><option value="2026">2026</option></select>年
-                        <select onchange="MMDD(this.value,document.form1.SYear,document.form1.SDay)" id="m" name="SMonth"><option value="1">1</option></select>月
-                        <select id="d" name="SDay"><option value="1">1</option></select>日
-                    </div>
-                    <div><span class="label-text">性别：</span>
-                        <label><input type="radio" name="g" id="g1" value="1" checked="checked">男</label>
-                        <label><input type="radio" name="g" id="g2" value="2">女</label>
-                    </div>
-                    <div><span class="label-text">运营商：</span>
-                        <select name="operator" id="operator">
-                            <option value="mobile" selected="selected">中国移动</option>
-                            <option value="unicom">中国联通</option>
-                            <option value="telecom">中国电信</option>
-                        </select>
-                    </div>
-                    <div><span class="label-text">提交：</span>
-                        <div class="number-input-group">
-                            <button type="button" class="number-btn" onclick="changeNumber(-1)">-</button>
-                            <input type="text" name="n" id="n" size="3" maxlength="3" value="1" style="margin: 0 8px; text-align: center; width: 60px;">
-                            <button type="button" class="number-btn" onclick="changeNumber(1)">+</button>
-                            <span style="margin-left: 8px;">个</span>
-                        </div>
-                    </div>
-                    <div class="center">
-                        <button id="refresh" class="button refresh-btn" onclick="randomInit()" title="刷新随机数据">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="23 4 23 10 17 10"></polyline>
-                            <polyline points="1 20 1 14 7 14"></polyline>
-                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                        </svg>
-                    </button>
-                        <input id="go" value="提交" type="button" class="button submit-btn" onclick="ock()">
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="rNo" id="rNo"></div>
-    </div>
-    <div class="footer">
-        © 2026 litao - 仅供学习和测试使用
-    </div>
-</div>
-<div id="toast" class="toast"></div>
 <script language="javascript">
 new PCAS("p","c","r","110000-北京市","110100-市辖区","110101-东城区");
+YYYYMMDDstart(document.form1,document.form1.SYear,document.form1.SMonth,document.form1.SDay);
 </script>
-</body>
-</html>
+</body></html>

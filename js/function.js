@@ -44,7 +44,7 @@ function calculateAge(year, month, day) {
 function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorText,age){
 	var i = 0;
 	var q17;
-	var reCarNo = '';
+	var reCarNo = '<div class="space-y-4">';
 	while (i<num){
 		sjs = getRandom(100,999);
 		if (sex==1){
@@ -54,7 +54,15 @@ function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorT
 				var phone = generatePhone(operator);
 				var address = generateAddress(areaText);
 				var name = generateName(sex);
-				reCarNo = reCarNo + "<div class='result-card'><div class='result-header'>信息 " + (i) + "</div><div class='result-item'><span class='label'>姓名</span><span class='info-text' style='font-size:18px;font-weight:600;'>" + name + "</span></div><div class='result-item'><span class='label'>地点</span><span class='info-text'>" + areaText + "</span></div><div class='result-item'><span class='label'>详细地址</span><span class='info-text' style='word-break: break-all;'>" + address + "</span></div><div class='result-item'><span class='label'>出生</span><span class='info-text'>" + dateText + "</span></div><div class='result-item'><span class='label'>性别</span><span class='info-text'>" + genderText + "</span></div><div class='result-item'><span class='label'>年龄</span><span class='info-text'>" + age + "岁</span></div><div class='result-divider'></div><div class='result-item'><span class='label'>身份证</span><span class='idcard' id='idcard_" + i + "'>" + to18(q17) + "</span><button class='copy-btn' onclick='copyText(\"idcard_" + i + "\")'>复制</button></div><div class='result-item'><span class='label'>手机号</span><span class='phone' id='phone_" + i + "'>" + phone + "</span><button class='copy-btn' onclick='copyText(\"phone_" + i + "\")'>复制</button></div></div>"
+				var idCard = to18(q17);
+				reCarNo = reCarNo + '<div class="bg-white rounded-xl border border-outline-variant/30 p-5 shadow-sm">'
+					+ '<div class="flex justify-between items-center py-2 border-b border-surface-variant mb-3"><div class="flex items-center gap-2"><span class="text-on-surface-variant font-label-md">姓名</span><span class="px-2 h-5 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center min-w-[20px]">' + i + '</span></div><span class="font-bold text-on-surface">' + name + '</span></div>'
+					+ '<div class="flex justify-between items-center py-2"><span class="text-on-surface-variant font-label-md">家庭住址</span><span class="text-on-surface text-right max-w-[200px]">' + address + '</span></div>'
+					+ '<div class="flex justify-between items-center py-2"><span class="text-on-surface-variant font-label-md">出生日期</span><span class="font-bold text-on-surface">' + dateText + '</span></div>'
+					+ '<div class="flex justify-between items-center py-2"><span class="text-on-surface-variant font-label-md">性别 / 年龄</span><span class="text-on-surface">' + genderText + ' / ' + age + '岁</span></div>'
+					+ '<div class="group flex justify-between items-center py-3 bg-surface-container-lowest px-4 rounded-lg border border-transparent hover:border-primary/30 transition-all mt-4"><div class="flex flex-col"><span class="text-on-surface-variant text-[12px] font-label-md mb-1">身份证号</span><span class="font-mono-data text-mono-data text-primary tracking-wider" id="idcard_' + i + '">' + idCard + '</span></div><button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-primary/10 transition-all active:scale-90" onclick="copyText(\'idcard_' + i + '\')"><span class="material-symbols-outlined">content_copy</span></button></div>'
+					+ '<div class="group flex justify-between items-center py-3 bg-surface-container-lowest px-4 rounded-lg border border-transparent hover:border-primary/30 transition-all"><div class="flex flex-col"><span class="text-on-surface-variant text-[12px] font-label-md mb-1">手机号码</span><span class="font-mono-data text-mono-data text-primary tracking-wider" id="phone_' + i + '">' + phone + '</span></div><button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-primary/10 transition-all active:scale-90" onclick="copyText(\'phone_' + i + '\')"><span class="material-symbols-outlined">content_copy</span></button></div>'
+					+ '</div>';
 			}
 		} else {
 			if ((sjs%2)==0){
@@ -63,10 +71,19 @@ function Get_CarNo(d6,b8,sex,num,operator,areaText,genderText,dateText,operatorT
 				var phone = generatePhone(operator);
 				var address = generateAddress(areaText);
 				var name = generateName(sex);
-				reCarNo = reCarNo + "<div class='result-card'><div class='result-header'>信息 " + (i) + "</div><div class='result-item'><span class='label'>姓名</span><span class='info-text' style='font-size:18px;font-weight:600;'>" + name + "</span></div><div class='result-item'><span class='label'>地点</span><span class='info-text'>" + areaText + "</span></div><div class='result-item'><span class='label'>详细地址</span><span class='info-text' style='word-break: break-all;'>" + address + "</span></div><div class='result-item'><span class='label'>出生</span><span class='info-text'>" + dateText + "</span></div><div class='result-item'><span class='label'>性别</span><span class='info-text'>" + genderText + "</span></div><div class='result-item'><span class='label'>年龄</span><span class='info-text'>" + age + "岁</span></div><div class='result-divider'></div><div class='result-item'><span class='label'>身份证</span><span class='idcard' id='idcard_" + i + "'>" + to18(q17) + "</span><button class='copy-btn' onclick='copyText(\"idcard_" + i + "\")'>复制</button></div><div class='result-item'><span class='label'>手机号</span><span class='phone' id='phone_" + i + "'>" + phone + "</span><button class='copy-btn' onclick='copyText(\"phone_" + i + "\")'>复制</button></div></div>"
+				var idCard = to18(q17);
+				reCarNo = reCarNo + '<div class="bg-white rounded-xl border border-outline-variant/30 p-5 shadow-sm">'
+					+ '<div class="flex justify-between items-center py-2 border-b border-surface-variant mb-3"><div class="flex items-center gap-2"><span class="text-on-surface-variant font-label-md">姓名</span><span class="px-2 h-5 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center min-w-[20px]">' + i + '</span></div><span class="font-bold text-on-surface">' + name + '</span></div>'
+					+ '<div class="flex justify-between items-center py-2"><span class="text-on-surface-variant font-label-md">家庭住址</span><span class="text-on-surface text-right max-w-[200px]">' + address + '</span></div>'
+					+ '<div class="flex justify-between items-center py-2"><span class="text-on-surface-variant font-label-md">出生日期</span><span class="font-bold text-on-surface">' + dateText + '</span></div>'
+					+ '<div class="flex justify-between items-center py-2"><span class="text-on-surface-variant font-label-md">性别 / 年龄</span><span class="text-on-surface">' + genderText + ' / ' + age + '岁</span></div>'
+					+ '<div class="group flex justify-between items-center py-3 bg-surface-container-lowest px-4 rounded-lg border border-transparent hover:border-primary/30 transition-all mt-4"><div class="flex flex-col"><span class="text-on-surface-variant text-[12px] font-label-md mb-1">身份证号</span><span class="font-mono-data text-mono-data text-primary tracking-wider" id="idcard_' + i + '">' + idCard + '</span></div><button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-primary/10 transition-all active:scale-90" onclick="copyText(\'idcard_' + i + '\')"><span class="material-symbols-outlined">content_copy</span></button></div>'
+					+ '<div class="group flex justify-between items-center py-3 bg-surface-container-lowest px-4 rounded-lg border border-transparent hover:border-primary/30 transition-all"><div class="flex flex-col"><span class="text-on-surface-variant text-[12px] font-label-md mb-1">手机号码</span><span class="font-mono-data text-mono-data text-primary tracking-wider" id="phone_' + i + '">' + phone + '</span></div><button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-primary/10 transition-all active:scale-90" onclick="copyText(\'phone_' + i + '\')"><span class="material-symbols-outlined">content_copy</span></button></div>'
+					+ '</div>';
 			}
 		}
 	}
+	reCarNo = reCarNo + '</div>';
 	return reCarNo;
 }
 
@@ -256,4 +273,57 @@ function to18(str17){
 			break;
 	}
 	return str17+restr;
+}
+
+function exportToExcel() {
+	var cards = document.querySelectorAll('#rNo .bg-white');
+	if (cards.length === 0) {
+		showToast('没有可导出的数据', 'error');
+		return;
+	}
+	
+	var data = [];
+	data.push(['序号', '姓名', '家庭住址', '出生日期', '性别', '年龄', '身份证号', '手机号码']);
+	
+	cards.forEach(function(card, index) {
+		var name = card.querySelector('span.font-bold.text-on-surface')?.textContent || '';
+		var address = card.querySelectorAll('div.flex.justify-between.items-center.py-2')[1]?.querySelector('span:last-child')?.textContent || '';
+		var birthday = card.querySelectorAll('div.flex.justify-between.items-center.py-2')[2]?.querySelector('span:last-child')?.textContent || '';
+		var genderAge = card.querySelectorAll('div.flex.justify-between.items-center.py-2')[3]?.querySelector('span:last-child')?.textContent || '';
+		var gender = genderAge.split(' / ')[0] || '';
+		var age = genderAge.split(' / ')[1]?.replace('岁', '') || '';
+		
+		var idcard = '';
+		var phone = '';
+		var infoBoxes = card.querySelectorAll('div.bg-surface-container-lowest');
+		infoBoxes.forEach(function(box) {
+			var label = box.querySelector('span.text-on-surface-variant')?.textContent || '';
+			var value = box.querySelector('span.font-mono-data')?.textContent || '';
+			if (label.includes('身份证号')) {
+				idcard = value;
+			} else if (label.includes('手机号码')) {
+				phone = value;
+			}
+		});
+		
+		data.push([index + 1, name, address, birthday, gender, age, idcard, phone]);
+	});
+	
+	var csvContent = data.map(row => row.map(cell => {
+		if (cell === null || cell === undefined) return '';
+		var escaped = String(cell).replace(/"/g, '""');
+		return `"${escaped}"`;
+	}).join(',')).join('\n');
+	
+	var blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+	var link = document.createElement('a');
+	var url = URL.createObjectURL(blob);
+	link.setAttribute('href', url);
+	link.setAttribute('download', '身份信息_' + new Date().toLocaleDateString('zh-CN').replace(/\//g, '-') + '.csv');
+	link.style.visibility = 'hidden';
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	
+	showToast('导出成功', 'success');
 }
